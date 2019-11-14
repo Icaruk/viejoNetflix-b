@@ -20,6 +20,24 @@ Content-Type:application/json
 ###
 
 
+POST http://localhost:3000/user/login
+Content-Type:application/json
+
+{
+	"username":  "Icaruk",
+	"password":  "1234"
+}
+###
+
+
+GET http://localhost:3000/user/5dcd73a75ede043968446db0
+###
+
+
+DELETE http://localhost:3000/user/delete/5dcd73a75ede043968446db0
+###
+
+
 
 // -----------------------
 //         Movies

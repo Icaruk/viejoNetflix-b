@@ -1,11 +1,15 @@
 
 const router = require ("express").Router();
-const { registerUser, getAllUsers }  = require("../DB/db_user");
+const { registerUser, loginUser, getAllUsers, getUser, deleteUser }  = require("../DB/db_user");
 
 
 router.post("/user/register", registerUser);
-router.get("/user/all", getAllUsers);
+router.post("/user/login", loginUser);
 
+router.get("/user/all", getAllUsers);
+router.get("/user/:id", getUser);
+
+router.delete("/user/delete/:id", deleteUser);
 
 module.exports = router;
 
