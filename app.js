@@ -2,37 +2,11 @@
 // Imports
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-
-const UserModel = require("./models/User");
-const { registerUser, getAllUsers }  = require("./DB/db_user");
-const { addMovie, getAllMovies } = require("./DB/db_movie");
-
-
-// DB
-// mongoose.connect("mongodb://localhost:27017/DB_angularPelis", {
-// 	useNewUrlParser: true,
-// 	useUnifiedTopology: true,
-// 	useCreateIndex: true
-// }).then ( () => {
-// 	console.log( "    ---> Connected to mongoDB" );
-// }).catch ( (err) => {
-// 	console.log( err );
-// });
 
 
 
-// Mio
-const uri = "mongodb+srv://Server_viejoNetflix:1234@cluster0-j9rpr.mongodb.net/viejoNetflix?retryWrites=true&w=majority";
-mongoose.connect(uri, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	useCreateIndex: true	
-}).then( () => {
-	console.log( "    ---> Connected to mongoDB" );
-}).catch( (err) => {
-	console.log( err );
-});
+// Init DB
+const initDB = require("./DB/db_init")();
 
 
 
@@ -42,14 +16,14 @@ app.use(express.json()); // parsea objetos STRING a JSON
 
 
 // Routes
-app.get("/user/all", getAllUsers);
-app.post("/user/register", registerUser);
-
-app.get("/movie/all", getAllMovies);
-app.post("/movie/add", addMovie);
+app.use(require("./routes/rt_user"));
+app.use(require("./routes/rt_movies"));
 
 
 
+
+
+/*
 app.get("/user/:id", (req, res) => {
 	
 	UserModel.findById(req.params.id).then( (data) => {
@@ -94,6 +68,7 @@ app.patch("/user/:id", (req, res) => {
 	}).catch (err => console.log(err));
 	
 });
+*/
 
 
 

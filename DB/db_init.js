@@ -16,7 +16,7 @@ const initDb = () => {
 	}).catch( (err) => {
 		console.log( err );
 	});
-
+	
 };
 
 
