@@ -23,19 +23,18 @@ const MovieSchema = mongoose.Schema({
 	},
 	
 	overview: {
-		type: String,
+		type: String
 		
 	},
 	poster_path: {
 		type: String
 	},
 	backdrop_path: {
-		type: String,
+		type: String
 		
 	},
 	video: {
-		type: String,
-		
+		type: Boolean
 	},
 	
 	genre_ids: {
