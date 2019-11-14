@@ -36,37 +36,21 @@ const addMovie = (req, res) => {
 
 
 
-const addMovie_debug = (rawData) => {
+const getAllMovies = (req, res) => {
 	
-	console.log( "Guardando id: " + rawData.id );
-	MovieModel.insert
-	
-	new MovieModel ({
-		
-		id: 				rawData.id,
-		title: 				rawData.title,
-		original_title: 	rawData.original_title,
-		release_date: 		rawData.release_date,
-		runtime: 			rawData.runtime,
-		overview: 			rawData.overview,
-		poster_path: 		rawData.poster_path,
-		backdrop_path: 		rawData.backdrop_path,
-		video: 				rawData.video,
-		genre_ids: 			rawData.genre_ids,
-		adult: 				rawData.adult,
-		original_language: 	rawData.original_language,
-		popularity: 		rawData.popularity,
-		vote_count: 		rawData.vote_count,
-		vote_average: 		rawData.vote_average
-		
-	});
-	
+	MovieModel.find(
+		{}
+	).then ( (allMovies) => {
+		res.send(allMovies);
+	}).catch( (err) => {
+		console.log( err );
+	})
 	
 };
 
 
 
-const getAllMovies = (req, res) => {
+const getMovie = (req, res) => {
 	
 	MovieModel.find(
 		{}
