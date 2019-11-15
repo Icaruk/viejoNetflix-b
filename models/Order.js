@@ -8,13 +8,13 @@ const OrderSchema = mongoose.Schema({
 		type: Number
 	},
 	clientId: {
-		type: Number
+		type: String
 	},
 	startDate: {
-		type: Date
+		type: Array
 	},
 	endDate: {
-		type: Date
+		type: Array
 	},
 	city: {
 		type: String
@@ -28,6 +28,6 @@ const OrderSchema = mongoose.Schema({
 
 
 const OrderModel = mongoose.model("order", OrderSchema);
-module.exports = UserModel;
+module.exports = OrderModel;
 
 

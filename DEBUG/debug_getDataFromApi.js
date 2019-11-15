@@ -8,13 +8,12 @@ Ejecutar con:
 // Imports
 const mongoose = require("mongoose");
 const axios = require('axios');
-const { addMovie_debug }  = require("../DB/db_movie");
 const MovieModel = require("../models/Movie");
 
 
 
 // DB
-const uri = "mongodb+srv://Server_viejoNetflix:1234@cluster0-j9rpr.mongodb.net/viejoNetflix?retryWrites=true&w=majority";
+const uri = "";
 
 mongoose.connect(uri, {
 	useNewUrlParser: true,

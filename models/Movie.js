@@ -31,7 +31,6 @@ const MovieSchema = mongoose.Schema({
 	},
 	backdrop_path: {
 		type: String
-		
 	},
 	video: {
 		type: Boolean

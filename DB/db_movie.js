@@ -3,6 +3,172 @@ const MovieModel = require("../models/Movie");
 
 
 
+const getMoviesById = (req, res) => {
+	
+	let id = req.params.id;
+	
+	
+	MovieModel.findOne(
+		{id: id}
+	).then ( (movies) => {
+		res.send(movies);
+	}).catch( (err) => {
+		console.log( err );
+	});
+	
+};
+
+
+
+const getMoviesByTitle = (req, res) => {
+	
+	let title = req.params.title;
+	
+	
+	MovieModel.find({
+		title: {$regex: `.*${title}.*`}
+	}).then ( (movies) => {
+		
+		res.send({
+			total_results: movies.length,
+			results: movies
+		});
+		
+	}).catch( (err) => {
+		console.log( err );
+	});
+	
+};
+
+
+
+const getMoviesByGenre = (req, res) => {
+	
+	let genre = req.params.genre1;
+	genre = parseInt(genre);
+	
+	MovieModel.find({
+		genre_ids: genre
+	}).then ( (movies) => {
+		
+		res.send({
+			total_results: movies.length,
+			results: movies
+		});
+		
+	}).catch( (err) => {
+		console.log( err );
+	});
+	
+};
+
+
+
+const getPopularMovies = (req, res) => {
+	
+	// Default 50, min 3, max 500
+	
+	let limit = req.params.limit;
+	if (!limit) {limit = 50};
+	
+	limit = parseInt(limit);
+	limit = (Math.max(
+		Math.min(limit, 500),
+		3
+	));
+	
+	
+	MovieModel.find(
+		{}
+	).limit(
+		limit
+	).sort({
+		popularity: -1
+	}).then ( (movies) => {
+		
+		res.send({
+			total_results: movies.length,
+			results: movies
+		});
+		
+	}).catch( (err) => {
+		console.log( err );
+	})
+	
+};
+
+
+
+const getNewestMovies = (req, res) => {
+	
+	// Default 50, min 3, max 500
+	
+	let limit = req.params.limit;
+	if (!limit) {limit = 50};
+	
+	limit = parseInt(limit);
+	limit = (Math.max(
+		Math.min(limit, 500),
+		3
+	));
+	
+	
+	MovieModel.find(
+		{}
+	).limit(
+		limit
+	).sort({
+		release_date: -1
+	}).then ( (movies) => {
+		
+		res.send({
+			total_results: movies.length,
+			results: movies
+		});
+		
+	}).catch( (err) => {
+		console.log( err );
+	})
+	
+};
+
+
+
+const getOldestMovies = (req, res) => {
+	
+	// Default 50, min 3, max 500
+	
+	let limit = req.params.limit;
+	if (!limit) {limit = 50};
+	
+	limit = parseInt(limit);
+	limit = (Math.max(
+		Math.min(limit, 500),
+		3
+	));
+	
+	
+	MovieModel.find({
+		release_date: {$ne: null}
+	}).limit(
+		limit
+	).sort({
+		release_date: 1
+	}).then ( (movies) => {
+		
+		res.send({
+			total_results: movies.length,
+			results: movies
+		});
+		
+	}).catch( (err) => {
+		console.log( err );
+	})
+	
+};
+
+
+
 const addMovie = (req, res) => {
 	
 	let bodyData = req.body;
@@ -36,37 +202,42 @@ const addMovie = (req, res) => {
 
 
 
-const getAllMovies = (req, res) => {
+const deleteMovie = (req, res) => {
 	
-	MovieModel.find(
-		{}
-	).then ( (allMovies) => {
-		res.send(allMovies);
+	let id = req.params.id;
+	
+	
+	MovieModel.findOneAndDelete({
+		id: id
+	}).then( (cadaver) => {
+		
+		if (cadaver) {
+			res.send({
+				message: `Movie ${cadaver.id} DELETED: Title: ${cadaver.title}`
+			});
+		} else {
+			res.send({
+				action: "deleteMovie",
+				error: `Movie with id ${id} not found.`
+			})
+		};
+		
 	}).catch( (err) => {
 		console.log( err );
-	})
+	});
+	
 	
 };
-
-
-
-const getMovie = (req, res) => {
-	
-	MovieModel.find(
-		{}
-	).then ( (allMovies) => {
-		res.send(allMovies);
-	}).catch( (err) => {
-		console.log( err );
-	})
-	
-};
-
 
 
 
 module.exports = {
+	getMoviesById,
+	getMoviesByTitle,
+	getMoviesByGenre,
+	getPopularMovies,
+	getNewestMovies,
+	getOldestMovies,
 	addMovie,
-	getAllMovies,
-	addMovie_debug
+	deleteMovie
 };

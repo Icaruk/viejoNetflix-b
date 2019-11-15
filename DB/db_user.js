@@ -66,7 +66,18 @@ const deleteUser = (req, res) => {
 	UserModel.findByIdAndDelete(
 		id
 	).then ( (cadaver) => {
-		res.send(`User ${cadaver.id} DELETED: username: ${cadaver.username} email: ${cadaver.email}`);
+		
+		if (cadaver) {
+			res.send({
+				message: `User ${cadaver.id} DELETED: username: ${cadaver.username} email: ${cadaver.email}`
+			});
+		} else {
+			res.send({
+				action: "deleteUser",
+				error: `User with id ${id} not found.`
+			})
+		};
+		
 	}).catch( (err) => {
 		console.log( err );
 	});
@@ -78,31 +89,34 @@ const deleteUser = (req, res) => {
 
 const loginUser = (req, res) => {
 	
-	let username = req.body.username; // puede ser username o email
+	let usernameOrEmail = req.body.username; // puede ser username o email
 	let password = req.body.password;
 	
 	
 	// Pruebo a buscar por username
-	UserModel.find({
-		username: username
-	}).then ( (usersFound) => {
+	UserModel.findOne({
+		$and : [
+			{$or : [
+				{ username:  usernameOrEmail}, { email: usernameOrEmail }
+			]},
+			{ password: password }
+		]
+	}).then ( (userFound) => {
 		
-		if (usersFound.length > 0) { // lo he encontrado por usuario
+		// ¿User encontrado?
+		if (!user) {
 			
-			returnLoginUser(password, res, usersFound);
+			res.send({
+				error: "User not found or wrong password."
+			});
 			
-		} else { // no lo he encontrado, pruebo por email
+		} else {
 			
-			UserModel.find({
-				email: username
-			})
-			.then( (usersFound) => {
-				returnLoginUser(password, res, usersFound);
-			})
-			.catch( err => console.log(err) );
+			res.send({
+				token: user._id
+			});
 			
 		};
-		
 		
 	}).catch( (err) => {
 		console.log( err );
@@ -110,49 +124,11 @@ const loginUser = (req, res) => {
 	
 };
 
-function returnLoginUser (password, res, usersFound) {
-	
-	// ¿User encontrado?
-	let user;
-	
-	if (usersFound.length === 0) {
-		
-		res.send({
-			error: "User not found."
-		});
-		
-		return;
-		
-	} else {
-		user = usersFound[0];
-	};
-	
-	
-	// ¿Pass correcta?
-	if (password === user.password) {
-		
-		res.send({
-			token: user._id
-		});		
-		
-	} else {
-		
-		res.send({
-			error: "Wrong password"
-		});
-		
-	};
-	
-
-	
-};
-
-
 
 
 const logoutUser = (req, res) => {
 	
-	
+	// PENDIENTE
 	
 };
 

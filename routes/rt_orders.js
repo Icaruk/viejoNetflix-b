@@ -3,9 +3,9 @@ const { addOrder, endOrder, deleteOrder, getOrder } = require("../DB/db_order");
 
 
 router.post("/order/add", addOrder);
-router.post("/order/end/:id", endOrder);
-router.post("/order/delete/:id", deleteOrder);
 router.get("/order/:id", getOrder);
+router.get("/order/complete/:id", endOrder);
+router.delete("/order/delete/:id", deleteOrder);
 
 
 module.exports = router;

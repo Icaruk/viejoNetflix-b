@@ -30,11 +30,11 @@ Content-Type:application/json
 ###
 
 
-GET http://localhost:3000/user/5dcd73a75ede043968446db0
+GET http://localhost:3000/user/5dcd7652394fde1938a80f02
 ###
 
 
-DELETE http://localhost:3000/user/delete/5dcd73a75ede043968446db0
+DELETE http://localhost:3000/user/delete/5dcd7652394fde1938a80f02
 ###
 
 
@@ -45,7 +45,27 @@ DELETE http://localhost:3000/user/delete/5dcd73a75ede043968446db0
 
 
 
-GET http://localhost:3000/movie/all
+GET http://localhost:3000/movie/id/458897
+###
+
+
+GET http://localhost:3000/movie/title/Madre
+###
+
+
+GET http://localhost:3000/movie/genre/28
+###
+
+
+GET http://localhost:3000/movie/popular/3
+###
+
+
+GET http://localhost:3000/movie/newest/100
+###
+
+
+GET http://localhost:3000/movie/oldest/100
 ###
 
 
@@ -53,7 +73,7 @@ POST http://localhost:3000/movie/add
 Content-Type:application/json
 
 {
-	"id": 0,	
+	"id": 1,
 	"title": "Titulo", 
 	"original_title": "Titulo original",
 	"release_date": "2019-11-13",
@@ -61,7 +81,7 @@ Content-Type:application/json
 	"overview": "resumen",
 	"poster_path": "link poster",
 	"backdrop_path": "link back",
-	"video": "link video",
+	"video": false,
 	"genre_ids": [1, 2, 3],
 	"adult": false,
 	"original_language": "ES",
@@ -70,6 +90,47 @@ Content-Type:application/json
 	"vote_average": 60
 }
 ###
+
+
+DELETE http://localhost:3000/movie/delete/1
+###
+
+
+
+// -----------------------
+//         Orders
+// -----------------------
+
+POST http://localhost:3000/order/add
+Content-Type:application/json
+
+{
+	"movieId": 458897,
+	"clientId": "5dcd7652394fde1938a80f02",
+	"startDate": [2019, 11, 15, 14, 24],
+	"endDate": [2019, 11, 16, 14, 24],
+	"city": "Valencia"
+}
+###
+
+
+GET http://localhost:3000/order/5dcea756ba499139506d1500
+###
+
+
+GET http://localhost:3000/order/complete/5dcea756ba499139506d1500&true
+###
+
+
+DELETE http://localhost:3000/order/delete/5dcea756ba499139506d1500
+###
+
+
+
+
+
+
+
 
 
 
