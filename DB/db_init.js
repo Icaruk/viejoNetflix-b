@@ -11,7 +11,7 @@ const initDb = () => {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 		useCreateIndex: true,
-		useFindAndModify: true
+		useFindAndModify: false
 	}).then( () => {
 		console.log( "    ---> Connected to mongoDB" );
 	}).catch( (err) => {

@@ -124,7 +124,8 @@ const loginUser = (req, res) => {
 					res.status(403); // Forbidden
 					res.send({
 						action: "userLogin",
-						error: "User is already logged in."
+						error: "User is already logged in.",
+						token: tokenFound._id
 					});
 					
 				// No lo estaba

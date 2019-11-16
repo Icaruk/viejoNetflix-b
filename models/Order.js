@@ -11,10 +11,12 @@ const OrderSchema = mongoose.Schema({
 		type: String
 	},
 	startDate: {
-		type: Array
+		type: Date,
+		default: () => Date.now()
 	},
 	endDate: {
-		type: Array
+		type: Date,
+		default: () => Date.now() + 2 * 24 * 60 * 60 * 1000
 	},
 	city: {
 		type: String

@@ -74,19 +74,17 @@ Delete a user.
 
 # Orders
 
-
 ## **POST** /order/add?token={token}
 ``` json
 {
 	"movieId": 458897,
 	"clientId": "5dcd7652394fde1938a80f02",
-	"startDate": [2019, 11, 15, 14, 24],
-	"endDate": [2019, 11, 16, 14, 24],
 	"city": "Valencia"
 }
 ```
 
 
 ## **GET** /order/{order_id}?token={token}
-## **GET** /order/setStatus/{order_id}=status={status_id}&token={token}
+## **GET** /order/client/{client_id}?token={token}
+## **GET** /order/setStatus/{order_id}?status={status_id}&token={token}
 ## **DELETE** /order/delete/{order_id}?token={token}
