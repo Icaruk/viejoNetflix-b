@@ -10,7 +10,8 @@ const initDb = () => {
 	mongoose.connect(uri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
-		useCreateIndex: true	
+		useCreateIndex: true,
+		useFindAndModify: true
 	}).then( () => {
 		console.log( "    ---> Connected to mongoDB" );
 	}).catch( (err) => {

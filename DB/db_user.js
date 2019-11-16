@@ -1,6 +1,6 @@
 
 const UserModel = require("../models/User");
-
+const TokenModel = require("../models/Token");
 
 
 const registerUser = (req, res) => {
@@ -43,6 +43,7 @@ const getAllUsers = (req, res) => {
 const getUser = (req, res) => {
 	
 	let id = req.params.id;
+	// let token = req.params.token;
 	
 	
 	UserModel.findById(
@@ -101,7 +102,7 @@ const loginUser = (req, res) => {
 			]},
 			{ password: password }
 		]
-	}).then ( (userFound) => {
+	}).then ( (user) => {
 		
 		// ¿User encontrado?
 		if (!user) {
@@ -112,8 +113,42 @@ const loginUser = (req, res) => {
 			
 		} else {
 			
-			res.send({
-				token: user._id
+			// Compruebo si ya está logeado
+			TokenModel.findOne({
+				clientId: user._id
+			}).then( (tokenFound) => {
+				
+				// Ya estaba logeado
+				if (tokenFound) {
+					
+					res.status(403); // Forbidden
+					res.send({
+						action: "userLogin",
+						error: "User is already logged in."
+					});
+					
+				// No lo estaba
+				} else {
+					
+					// Creo token
+					new TokenModel ({
+						clientId: user._id
+					}).save().then( (token) => {
+						
+						// Lo envío
+						res.send({
+							userId: user._id,
+							token: token._id
+						});
+						
+					}).catch( (err) => {
+						console.log( err );
+					});					
+					
+				};
+				
+			}).catch( (err) => {
+				console.log( err );
 			});
 			
 		};
@@ -128,7 +163,31 @@ const loginUser = (req, res) => {
 
 const logoutUser = (req, res) => {
 	
-	// PENDIENTE
+	let token = req.query.token;
+	
+	
+	TokenModel.findByIdAndDelete(
+		token
+	).then( (cadaver) => {
+		
+		if (cadaver) {
+			
+			res.send({
+				message: "Logged out."
+			})
+			
+		} else {
+			
+			res.send({
+				action: "logoutUser",
+				error: "Token not found."
+			});
+			
+		};
+		
+	}).catch( (err) => {
+		console.log( err );
+	});
 	
 };
 

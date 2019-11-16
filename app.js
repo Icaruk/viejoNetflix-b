@@ -6,7 +6,7 @@ const app = express();
 
 
 // Init DB
-const initDB = require("./DB/db_init")();
+require("./DB/db_init")();
 
 
 

@@ -1,0 +1,56 @@
+
+// Login
+POST http://localhost:3000/user/login
+Content-Type:application/json
+
+{
+	"username":  "Icaruk",
+	"password":  "1234"
+}
+###
+
+
+// Ver datos del usuario
+GET http://localhost:3000/user/5dcd7652394fde1938a80f02?token=5dd005962adf5249746527c8
+###
+
+
+// Ver las pelis top50 populares
+GET http://localhost:3000/movie/popular/50?token=5dd005962adf5249746527c8
+###
+
+
+// Ver las pelis top10 nuevas
+GET http://localhost:3000/movie/newest/10?token=5dd005962adf5249746527c8
+###
+
+
+// Ver las pelis top20 viejas
+GET http://localhost:3000/movie/oldest/20?token=5dd005962adf5249746527c8
+###
+
+
+// Buscar una peli que contenga "madre" en el título
+GET http://localhost:3000/movie/search?title=madre&token=5dd005962adf5249746527c8
+###
+
+
+// Buscar una peli con la id 337154
+GET http://localhost:3000/movie/search?id=337154&token=5dd005962adf5249746527c8
+###
+
+
+// Buscar una peli con el género 12
+GET http://localhost:3000/movie/search?genre=12&token=5dd005962adf5249746527c8
+###
+
+
+// Ver todas las pelis (cuidao que son 10k)
+GET http://localhost:3000/movie/all?token=5dd005962adf5249746527c8
+###
+
+
+// Logout
+GET http://localhost:3000/user/logout?token=5dd005962adf5249746527c8
+###
+

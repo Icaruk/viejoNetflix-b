@@ -1,11 +1,14 @@
+
 const router = require ("express").Router();
-const { addOrder, endOrder, deleteOrder, getOrder } = require("../DB/db_order");
+const { addOrder, setOrderStatus, deleteOrder, getOrder } = require("../DB/db_order");
+const hasValidToken = require("../MW/hasValidToken");
 
 
-router.post("/order/add", addOrder);
-router.get("/order/:id", getOrder);
-router.get("/order/complete/:id", endOrder);
-router.delete("/order/delete/:id", deleteOrder);
+
+router.post("/order/add", hasValidToken, addOrder);
+router.get("/order/:id", hasValidToken, getOrder);
+router.get("/order/setStatus/:id&:status?", hasValidToken, setOrderStatus);
+router.delete("/order/delete/:id", hasValidToken, deleteOrder);
 
 
 module.exports = router;

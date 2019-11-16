@@ -9,6 +9,12 @@ const addOrder = (req, res) => {
 	let bodyData = req.body;
 	
 	
+	// Busco si el el client_id ya tiene un order
+	OrderModel.find({
+		_id: id
+	});
+	
+	
 	new OrderModel ({
 		
 		movieId: 	bodyData.movieId,
@@ -16,7 +22,7 @@ const addOrder = (req, res) => {
 		startDate: 	bodyData.startDate,
 		endDate: 	bodyData.endDate,
 		city: 		bodyData.city,
-		completed: 	false
+		status: 	0
 		
 	}).save().then( (order) => {
 		res.send(order);
@@ -34,31 +40,54 @@ const deleteOrder = (req, res) => {
 	
 	
 	OrderModel.findByIdAndDelete({
-		id: id
-	}).then( () => {
+		_id: id
+	}).then( (cadaver) => {
+		
+		if (cadaver) {
+			res.send({
+				message: `Order ${_id} has been deleted.`
+			});
+		} else {
+			res.send({
+				action: "deleteOrder",
+				error: `Order with id ${id} not found.`
+			})
+		};
 		
 	}).catch( () => {
-		
+		res.send({
+			action: "deleteOrder",
+			error: `Order with ${_id} not found.`
+		})		
 	});	
 	
 };
 
 
 
-const endOrder = (req, res) => {
+const setOrderStatus = (req, res) => {
 	
 	let id = req.params.id;
-	let bool = req.params.bool;
+	let status = req.params.status;
 	
 	
 	OrderModel.findOneAndUpdate({
 		_id: id
 	}, {
-		completed: bool
+		status: status
 	}).then( (order) => {
-		res.send({
-			message: `Order ${order._id} has been completed.`
-		});
+		
+		if (order) {
+			res.send({
+				message: `Order ${order._id} status has been changed to ${status}.`
+			});
+		} else {
+			res.send({
+				action: "setOrderStatus",
+				error: `Order with id ${id} not found.`
+			})
+		};
+		
 	}).catch( (err) => {
 		console.log( err );
 	});
@@ -72,14 +101,21 @@ const getOrder = (req, res) => {
 	let id = req.params.id;
 	
 	
-	OrderModel.find({
+	OrderModel.findOne({
 		_id: id
 	}).then( (order) => {
 		
-		res.send(order)
+		if (order) {
+			res.send(order)
+		} else {
+			res.send({
+				action: "getOrder",
+				error: `Order with id ${id} not found.`
+			})
+		};
 		
-	}).catch( () => {
-		
+	}).catch( (err) => {
+		console.log( err );
 	});
 	
 };
@@ -88,7 +124,7 @@ const getOrder = (req, res) => {
 
 module.exports = {
 	addOrder,
-	endOrder,
+	setOrderStatus,
 	deleteOrder,
 	getOrder
 };

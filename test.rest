@@ -30,6 +30,10 @@ Content-Type:application/json
 ###
 
 
+GET http://localhost:3000/user/logout/5dcd7652394fde1938a80f02
+###
+
+
 GET http://localhost:3000/user/5dcd7652394fde1938a80f02
 ###
 
@@ -114,15 +118,20 @@ Content-Type:application/json
 ###
 
 
-GET http://localhost:3000/order/5dcea756ba499139506d1500
+GET http://localhost:3000/order/5dcecb8dd831db2590cd01a8
 ###
 
 
-GET http://localhost:3000/order/complete/5dcea756ba499139506d1500&true
+// order/complete/{id order}${status}
+GET http://localhost:3000/order/setStatus/5dcecb8dd831db2590cd01a8&0
+###
+GET http://localhost:3000/order/setStatus/5dcecb8dd831db2590cd01a8&1
+###
+GET http://localhost:3000/order/setStatus/5dcecb8dd831db2590cd01a8&2
 ###
 
 
-DELETE http://localhost:3000/order/delete/5dcea756ba499139506d1500
+DELETE http://localhost:3000/order/delete/5dcec9994f5222428c8186d5
 ###
 
 

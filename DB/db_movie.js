@@ -3,59 +3,79 @@ const MovieModel = require("../models/Movie");
 
 
 
-const getMoviesById = (req, res) => {
+const getMoviesBySearch = (req, res) => {
 	
-	let id = req.params.id;
+	let id = req.query.id;
+	let title = req.query.title;
+	let genre = req.query.genre;
 	
 	
-	MovieModel.findOne(
-		{id: id}
-	).then ( (movies) => {
-		res.send(movies);
-	}).catch( (err) => {
-		console.log( err );
-	});
+	if (id) {
+		
+		MovieModel.findOne(
+			{id: id}
+		).then ( (movies) => {
+			res.send(movies);
+		}).catch( (err) => {
+			console.log( err );
+		});
+		
+	} else if (title) {
+		
+		MovieModel.find({
+			title: {$regex: `.*${title}.*`}
+		}).then ( (movies) => {
+			
+			if (!movies) {
+				
+				res.send({
+					total_results: 0
+				})
+				
+			} else {
+				
+				res.send({
+					total_results: movies.length,
+					results: movies
+				});
+				
+			};
+			
+		}).catch( (err) => {
+			console.log( err );
+		});
+		
+	} else if (genre) {
+		
+		genre = parseInt(genre);
+		
+		MovieModel.find({
+			genre_ids: genre
+		}).then ( (movies) => {
+			
+			res.send({
+				total_results: movies.length,
+				results: movies
+			});
+			
+		}).catch( (err) => {
+			console.log( err );
+		});
+		
+	};
 	
 };
 
 
-
-const getMoviesByTitle = (req, res) => {
+const getAllMovies = (req, res) => {
 	
-	let title = req.params.title;
-	
-	
-	MovieModel.find({
-		title: {$regex: `.*${title}.*`}
-	}).then ( (movies) => {
-		
+	MovieModel.find(
+		{}
+	).then( (movies) => {
 		res.send({
 			total_results: movies.length,
-			results: movies
+			results: movies			
 		});
-		
-	}).catch( (err) => {
-		console.log( err );
-	});
-	
-};
-
-
-
-const getMoviesByGenre = (req, res) => {
-	
-	let genre = req.params.genre1;
-	genre = parseInt(genre);
-	
-	MovieModel.find({
-		genre_ids: genre
-	}).then ( (movies) => {
-		
-		res.send({
-			total_results: movies.length,
-			results: movies
-		});
-		
 	}).catch( (err) => {
 		console.log( err );
 	});
@@ -232,9 +252,8 @@ const deleteMovie = (req, res) => {
 
 
 module.exports = {
-	getMoviesById,
-	getMoviesByTitle,
-	getMoviesByGenre,
+	getMoviesBySearch,
+	getAllMovies,
 	getPopularMovies,
 	getNewestMovies,
 	getOldestMovies,

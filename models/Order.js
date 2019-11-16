@@ -19,8 +19,8 @@ const OrderSchema = mongoose.Schema({
 	city: {
 		type: String
 	},
-	completed: {
-		type: Boolean
+	status: {
+		type: Number
 	}
 	
 });

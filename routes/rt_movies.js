@@ -1,29 +1,30 @@
 
 const router = require ("express").Router();
 const {
-	getMoviesById,
-	getMoviesByTitle,
-	getMoviesByGenre,
+	getMoviesBySearch,
+	getAllMovies,
 	getPopularMovies,
 	getNewestMovies,
 	getOldestMovies,
 	addMovie,
 	deleteMovie
 } = require("../DB/db_movie");
+const hasValidToken = require("../MW/hasValidToken");
 
 
 
-router.get("/movie/id/:id", getMoviesById);
-router.get("/movie/title/:title", getMoviesByTitle);
-router.get("/movie/genre/:genre1/:genre2?", getMoviesByGenre);
+router.get("/movie/search", hasValidToken, getMoviesBySearch);
+router.get("/movie/all", hasValidToken, getAllMovies);
 
 
-router.get("/movie/popular/:limit?", getPopularMovies);
-router.get("/movie/newest/:limit?", getNewestMovies);
-router.get("/movie/oldest/:limit?", getOldestMovies);
+router.get("/movie/popular/:limit?", hasValidToken, getPopularMovies);
+router.get("/movie/newest/:limit?", hasValidToken, getNewestMovies);
+router.get("/movie/oldest/:limit?", hasValidToken, getOldestMovies);
 
-router.post("/movie/add", addMovie);
-router.delete("/movie/delete/:id", deleteMovie);
+router.post("/movie/add", hasValidToken, addMovie);
+router.delete("/movie/delete/:id", hasValidToken, deleteMovie);
 
 
 module.exports = router;
+
+
