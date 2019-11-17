@@ -34,6 +34,7 @@ const hasValidToken = (req, res, next) => {
 			if (!tokenFound) {
 				responseToken("unauthorized", res);
 			} else {
+				req.adminLevel = tokenFound.adminLevel; // guardo el nivel de admin
 				next();
 			};
 			

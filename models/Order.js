@@ -7,7 +7,7 @@ const OrderSchema = mongoose.Schema({
 	movieId: {
 		type: Number
 	},
-	clientId: {
+	userId: {
 		type: String
 	},
 	startDate: {

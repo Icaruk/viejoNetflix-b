@@ -78,7 +78,7 @@ Delete a user.
 ``` json
 {
 	"movieId": 458897,
-	"clientId": "5dcd7652394fde1938a80f02",
+	"userId": "5dcd7652394fde1938a80f02",
 	"city": "Valencia"
 }
 ```

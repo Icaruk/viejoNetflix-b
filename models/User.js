@@ -17,12 +17,11 @@ const UserSchema = mongoose.Schema({
 	password: String,
 	phone: {
 		type: String,
-		unique: true,
+		unique: false,
 		required: true
 	},
 	address: {
 		type: String,
-		unique: true,
 		required: true
 	},
 	billing: {
@@ -34,13 +33,17 @@ const UserSchema = mongoose.Schema({
 			required: true
 		},
 		cardOwner: {
-			type: Number,
+			type: String,
 			required: true
 		},
 		cardExpireDate: {
-			type: Date,
+			type: Array,
 			required: true
 		}
+	},
+	adminLevel: {
+		type: Number,
+		default: 0
 	}
 	
 });

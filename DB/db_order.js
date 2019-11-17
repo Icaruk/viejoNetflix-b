@@ -8,9 +8,9 @@ const addOrder = (req, res) => {
 	let bodyData = req.body;
 	
 	
-	// Busco si el el clientId ya tiene un order
+	// Busco si el el userId ya tiene un order
 	OrderModel.countDocuments({
-		clientId: bodyData.clientId,
+		userId: bodyData.userId,
 		status: 0
 	}).then( (count)=> {
 		
@@ -19,16 +19,16 @@ const addOrder = (req, res) => {
 			
 			res.send({
 				action: "addOrder",
-				error: `The client ${bodyData.clientId} already has an order.`
+				error: `The client ${bodyData.userId} already has an order.`
 			});
-		
+			
 		// No tiene pedidos
 		} else {
 			
 			new OrderModel ({
 				
 				movieId: 	bodyData.movieId,
-				clientId: 	bodyData.clientId,
+				userId: 	bodyData.userId,
 				startDate: 	bodyData.startDate,
 				endDate: 	bodyData.endDate,
 				city: 		bodyData.city,
@@ -74,7 +74,7 @@ const deleteOrder = (req, res) => {
 		res.send({
 			action: "deleteOrder",
 			error: `Order with ${_id} not found.`
-		})		
+		})
 	});	
 	
 };
@@ -179,11 +179,11 @@ const getOrder = (req, res) => {
 
 const getOrdersByClient = (req, res) => {
 	
-	let clientId = req.params.clientId;
+	let userId = req.params.userId;
 	
 	
 	OrderModel.find({
-		clientId: clientId,
+		userId: userId,
 		status: 0
 	}).then( (orders) => {
 		res.send(orders)

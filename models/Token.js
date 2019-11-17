@@ -4,8 +4,12 @@ const mongoose = require("mongoose");
 
 const TokenSchema = mongoose.Schema({
 	
-	clientId: {
+	userId: {
 		type: String
+	},
+	adminLevel: {
+		type: Number,
+		default: 0
 	}
 	
 });

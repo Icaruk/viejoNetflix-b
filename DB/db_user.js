@@ -14,7 +14,8 @@ const registerUser = (req, res) => {
 		email: 		bodyData.email,
 		password: 	bodyData.password,
 		phone: 		bodyData.phone,
-		address:	bodyData.address
+		address:	bodyData.address,
+		billing:	bodyData.billing
 		
 	}).save().then( (user) => {
 		res.send(user);
@@ -115,7 +116,7 @@ const loginUser = (req, res) => {
 			
 			// Compruebo si ya está logeado
 			TokenModel.findOne({
-				clientId: user._id
+				userId: user._id
 			}).then( (tokenFound) => {
 				
 				// Ya estaba logeado
@@ -125,6 +126,7 @@ const loginUser = (req, res) => {
 					res.send({
 						action: "userLogin",
 						error: "User is already logged in.",
+						userId: tokenFound.userId,
 						token: tokenFound._id
 					});
 					
@@ -133,7 +135,8 @@ const loginUser = (req, res) => {
 					
 					// Creo token
 					new TokenModel ({
-						clientId: user._id
+						userId: user._id,
+						adminLevel: user.adminLevel
 					}).save().then( (token) => {
 						
 						// Lo envío
