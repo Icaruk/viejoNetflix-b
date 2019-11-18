@@ -63,8 +63,19 @@ const getUser = (req, res) => {
 const deleteUser = (req, res) => {
 	
 	let id = req.params.id;
+	// let token = req.query.token;
 	
 	
+	// Busco si tiene un token activo, para borrarlo
+	TokenModel.findOneAndRemove({
+		userId: id
+	}).catch( (err) => {
+		console.log( err );
+	})
+	
+	
+	
+	// Busco al usuario y lo borro
 	UserModel.findByIdAndDelete(
 		id
 	).then ( (cadaver) => {

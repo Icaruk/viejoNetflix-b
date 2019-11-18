@@ -7,7 +7,7 @@ const getMoviesBySearch = (req, res) => {
 	
 	let id = req.query.id;
 	let title = req.query.title;
-	let genre = req.query.genre;
+	let idGenre = req.query.genre;
 	
 	
 	if (id) {
@@ -45,12 +45,12 @@ const getMoviesBySearch = (req, res) => {
 			console.log( err );
 		});
 		
-	} else if (genre) {
+	} else if (idGenre) {
 		
-		genre = parseInt(genre);
+		idGenre = parseInt(idGenre);
 		
 		MovieModel.find({
-			genre_ids: genre
+			genre_ids: idGenre
 		}).then ( (movies) => {
 			
 			res.send({
