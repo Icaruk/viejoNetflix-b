@@ -12,7 +12,7 @@ const hasValidToken = (req, res, next) => {
 		
 		res.status(401);
 		res.send({
-			error: "Unauthrized."
+			error: "Unauthorized."
 		});
 		
 	} else {
