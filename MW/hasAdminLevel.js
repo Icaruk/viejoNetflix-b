@@ -6,6 +6,14 @@ const hasAdminLevel = (adminLevelRequired, req, res, next) => {
 	
 	let adminLevel = req.adminLevel;
 	
+	
+	// Si no viene admin level, lo pongo a 0
+	if (!adminLevel) {
+		adminLevel = 0;
+	};
+	
+	
+	// Compruebo admin level requerido
 	if (adminLevel < adminLevelRequired) {
 		
 		res.status(401);

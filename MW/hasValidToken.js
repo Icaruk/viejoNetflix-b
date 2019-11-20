@@ -7,6 +7,13 @@ const hasValidToken = (req, res, next) => {
 	let token = req.query.token;
 	
 	
+	// ¿Ignoro token?
+	if (req.ignoreToken) {
+		next();
+		return;
+	};
+	
+	
 	// No hay token
 	if (!token) {
 		

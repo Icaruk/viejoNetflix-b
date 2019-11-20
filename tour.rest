@@ -30,47 +30,51 @@ Content-Type:application/json
 
 
 // Ver datos del usuario
-GET http://localhost:3000/user/5dd2ae62d274334cd8a07cc1?token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/user/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
 ###
 
 
+// Ver las pelis top10 populares (sin token)
+GET http://localhost:3000/movie/popular?limit=10
+###
+
 // Ver las pelis top50 populares
-GET http://localhost:3000/movie/popular/50?token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/movie/popular?limit=10&token=5dd551e29256240df88835c3
 ###
 
 
 // Ver las pelis top10 nuevas
-GET http://localhost:3000/movie/newest/10?token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/movie/newest?limit=10&token=5dd551e29256240df88835c3
 ###
 
 
 // Ver las pelis top20 viejas
-GET http://localhost:3000/movie/oldest/20?token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/movie/oldest?limit=10&token=5dd551e29256240df88835c3
 ###
 
 
 // Buscar una peli que contenga "madre" en el título
-GET http://localhost:3000/movie/search?title=madre&token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/movie/search?limit=10&title=madre&token=5dd551e29256240df88835c3
 ###
 
 
 // Buscar una peli con la id 337154
-GET http://localhost:3000/movie/search?id=337154&token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/movie/search?id=337154&token=5dd551e29256240df88835c3
 ###
 
 
 // Buscar pelis con el género 12
-GET http://localhost:3000/movie/search?genre=12&token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/movie/search?limit=10&genre=12&token=5dd551e29256240df88835c3
 ###
 
 
 // Ver todas las pelis (cuidao que son 10k)
-GET http://localhost:3000/movie/all?token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/movie/all?limit=10&token=5dd551e29256240df88835c3
 ###
 
 
 // Crea un pedido
-POST http://localhost:3000/order/add?token=5dd2ae7bd274334cd8a07cc2
+POST http://localhost:3000/order/add?token=5dd551e29256240df88835c3
 Content-Type:application/json
 
 {
@@ -82,31 +86,31 @@ Content-Type:application/json
 
 
 // Ver datos del pedido
-GET http://localhost:3000/order/5dd2ae62d274334cd8a07cc1?token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/order/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
 ###
 
 
 // Ver los pedidos de un cliente
-GET http://localhost:3000/order/client/5dd2ae62d274334cd8a07cc1?token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/order/client/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
 ###
 
 
 // Marcar como finalizado
-GET http://localhost:3000/order/setStatus/5dd2ae62d274334cd8a07cc1?status=1&token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/order/setStatus/5dd2ae62d274334cd8a07cc1?status=1&token=5dd551e29256240df88835c3
 ###
 
 
 // Borra el pedido
-DELETE http://localhost:3000/order/delete/5dd2ae62d274334cd8a07cc1?token=5dd2ae7bd274334cd8a07cc2
+DELETE http://localhost:3000/order/delete/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
 ###
 
 
 // Logout
-GET http://localhost:3000/user/logout?token=5dd2ae7bd274334cd8a07cc2
+GET http://localhost:3000/user/logout?token=5dd54abc9256240df88835c2
 ###
 
 
 // Delete user
-DELETE http://localhost:3000/user/delete/5dd2ae62d274334cd8a07cc1?token=5dd2ae7bd274334cd8a07cc2
+DELETE http://localhost:3000/user/delete/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
 ###
 

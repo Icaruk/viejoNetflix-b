@@ -1,6 +1,6 @@
 
 const MovieModel = require("../models/Movie");
-
+const parseLimit = require ("../utils/parseLimit");
 
 
 const getMoviesBySearch = (req, res) => {
@@ -8,12 +8,15 @@ const getMoviesBySearch = (req, res) => {
 	let id = req.query.id;
 	let title = req.query.title;
 	let idGenre = req.query.genre;
+	let limit = parseLimit(req.query.limit);
 	
 	
 	if (id) {
 		
 		MovieModel.findOne(
 			{id: id}
+		).limit(
+			limit
 		).then ( (movies) => {
 			res.send(movies);
 		}).catch( (err) => {
@@ -24,7 +27,9 @@ const getMoviesBySearch = (req, res) => {
 		
 		MovieModel.find({
 			title: {$regex: `.*${title}.*`}
-		}).then ( (movies) => {
+		}).limit(
+			limit
+		).then ( (movies) => {
 			
 			if (!movies) {
 				
@@ -51,7 +56,9 @@ const getMoviesBySearch = (req, res) => {
 		
 		MovieModel.find({
 			genre_ids: idGenre
-		}).then ( (movies) => {
+		}).limit(
+			limit
+		).then ( (movies) => {
 			
 			res.send({
 				total_results: movies.length,
@@ -86,16 +93,7 @@ const getAllMovies = (req, res) => {
 
 const getPopularMovies = (req, res) => {
 	
-	// Default 50, min 3, max 500
-	
-	let limit = req.params.limit;
-	if (!limit) {limit = 50};
-	
-	limit = parseInt(limit);
-	limit = (Math.max(
-		Math.min(limit, 500),
-		3
-	));
+	let limit = parseLimit(req.query.limit);
 	
 	
 	MovieModel.find(
@@ -121,16 +119,7 @@ const getPopularMovies = (req, res) => {
 
 const getNewestMovies = (req, res) => {
 	
-	// Default 50, min 3, max 500
-	
-	let limit = req.params.limit;
-	if (!limit) {limit = 50};
-	
-	limit = parseInt(limit);
-	limit = (Math.max(
-		Math.min(limit, 500),
-		3
-	));
+	let limit = parseLimit(req.query.limit);
 	
 	
 	MovieModel.find(
@@ -156,16 +145,7 @@ const getNewestMovies = (req, res) => {
 
 const getOldestMovies = (req, res) => {
 	
-	// Default 50, min 3, max 500
-	
-	let limit = req.params.limit;
-	if (!limit) {limit = 50};
-	
-	limit = parseInt(limit);
-	limit = (Math.max(
-		Math.min(limit, 500),
-		3
-	));
+	let limit = parseLimit(req.query.limit);
 	
 	
 	MovieModel.find({

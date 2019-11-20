@@ -119,6 +119,7 @@ const loginUser = (req, res) => {
 		// ¿User encontrado?
 		if (!user) {
 			
+			res.status(401);
 			res.send({
 				error: "User not found or wrong password."
 			});
@@ -137,6 +138,7 @@ const loginUser = (req, res) => {
 					res.send({
 						action: "userLogin",
 						error: "User is already logged in.",
+						username: user.username,
 						userId: tokenFound.userId,
 						token: tokenFound._id
 					});
@@ -152,6 +154,7 @@ const loginUser = (req, res) => {
 						
 						// Lo envío
 						res.send({
+							username: user.username,
 							userId: user._id,
 							token: token._id
 						});
