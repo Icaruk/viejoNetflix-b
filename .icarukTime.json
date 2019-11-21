@@ -1,0 +1,11 @@
+{
+    "idleHeartbeats": 59,
+    "navigatingHeartbeats": 21,
+    "totalCodingHeartbeats": 154,
+    "languageHeartbeats": {
+        "http": 154
+    },
+    "fileHeartbeats": {
+        "tour.rest": 154
+    }
+}

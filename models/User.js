@@ -1,5 +1,7 @@
 
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+
 
 
 const UserSchema = mongoose.Schema({
@@ -45,6 +47,31 @@ const UserSchema = mongoose.Schema({
 		type: Number,
 		default: 0
 	}
+	
+});
+
+
+
+// MW para crypto
+UserSchema.pre("save", function (next) { // usamos function de ES5 porque queremos el this para acceder a la instancia
+	
+	const user = this;
+	
+	
+	bcrypt.hash(
+		user.password, 10
+	).then( hash => {
+		user.password = hash;
+		next();
+	}).catch( err => {
+		
+		console.log( err );
+		
+		res.status(500);
+		res.send(err);
+		
+	});
+	
 	
 });
 

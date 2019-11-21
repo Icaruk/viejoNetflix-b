@@ -1,6 +1,7 @@
 
 const UserModel = require("../models/User");
 const TokenModel = require("../models/Token");
+const bcrypt = require("bcryptjs");
 
 
 const registerUser = (req, res) => {
@@ -27,15 +28,117 @@ const registerUser = (req, res) => {
 
 
 
-const getAllUsers = (req, res) => {
+const loginUser = async (req, res) => {
 	
-	UserModel.find(
-		{}
-	).then ( (allUsers) => {
-		res.send(allUsers);
+	try {
+		
+		let usernameOrEmail = req.body.username; // puede ser username o email
+		let password = req.body.password;
+		
+		
+		// Pruebo a buscar por username
+		let userFound = await UserModel.findOne({
+			$or : [
+				{ username:  usernameOrEmail}, { email: usernameOrEmail }
+			]
+		});
+		
+		
+		// ¿User encontrado?
+		if (!userFound) {
+			
+			res.status(401);
+			res.send({
+				action: "userLogin",
+				error: "User not found or wrong password."
+			});
+			
+		} else {
+			
+			// Compruebo pass
+			if (! bcrypt.compare(password, userFound.password)) {
+				res.status(401);
+				res.send({
+					action: "userLogin",
+					error: "User not found or wrong password."
+				});
+			};
+			
+			
+			// Compruebo si ya está logeado
+			let tokenFound = await TokenModel.findOne({
+				userId: userFound._id
+			});
+			
+			
+			// Ya estaba logeado
+			if (tokenFound) {
+				
+				res.status(403); // Forbidden
+				res.send({
+					action: "userLogin",
+					error: "User is already logged in.",
+					username: userFound.username,
+					userId: tokenFound.userId,
+					token: tokenFound._id
+				});
+				
+			// No lo estaba
+			} else {
+				
+				// Creo nuevo token
+				let newToken = await new TokenModel ({
+					userId: userFound._id,
+					adminLevel: userFound.adminLevel
+				}).save();
+				
+				
+				// Lo envío de vuelta
+				res.send({
+					username: userFound.username,
+					userId: userFound._id,
+					token: newToken._id
+				});
+				
+			};
+			
+		};
+		
+	} catch (err) {
+		console.log( err );
+	};
+	
+};
+
+
+
+const logoutUser = (req, res) => {
+	
+	let token = req.query.token;
+	
+	
+	TokenModel.findByIdAndDelete(
+		token
+	).then( (cadaver) => {
+		
+		if (cadaver) {
+			
+			res.send({
+				message: "Logged out."
+			})
+			
+		} else {
+			
+			res.send({
+				action: "logoutUser",
+				error: "Token not found."
+			});
+			
+		};
+		
 	}).catch( (err) => {
 		console.log( err );
-	})	
+	});
 	
 };
 
@@ -55,6 +158,20 @@ const getUser = (req, res) => {
 		console.log( err );
 	});
 	
+	
+};
+
+
+
+const getAllUsers = (req, res) => {
+	
+	UserModel.find(
+		{}
+	).then ( (allUsers) => {
+		res.send(allUsers);
+	}).catch( (err) => {
+		console.log( err );
+	})	
 	
 };
 
@@ -95,117 +212,6 @@ const deleteUser = (req, res) => {
 		console.log( err );
 	});
 	
-	
-};
-
-
-
-const loginUser = (req, res) => {
-	
-	let usernameOrEmail = req.body.username; // puede ser username o email
-	let password = req.body.password;
-	
-	
-	// Pruebo a buscar por username
-	UserModel.findOne({
-		$and : [
-			{$or : [
-				{ username:  usernameOrEmail}, { email: usernameOrEmail }
-			]},
-			{ password: password }
-		]
-	}).then ( (user) => {
-		
-		// ¿User encontrado?
-		if (!user) {
-			
-			res.status(401);
-			res.send({
-				error: "User not found or wrong password."
-			});
-			
-		} else {
-			
-			// Compruebo si ya está logeado
-			TokenModel.findOne({
-				userId: user._id
-			}).then( (tokenFound) => {
-				
-				// Ya estaba logeado
-				if (tokenFound) {
-					
-					res.status(403); // Forbidden
-					res.send({
-						action: "userLogin",
-						error: "User is already logged in.",
-						username: user.username,
-						userId: tokenFound.userId,
-						token: tokenFound._id
-					});
-					
-				// No lo estaba
-				} else {
-					
-					// Creo token
-					new TokenModel ({
-						userId: user._id,
-						adminLevel: user.adminLevel
-					}).save().then( (token) => {
-						
-						// Lo envío
-						res.send({
-							username: user.username,
-							userId: user._id,
-							token: token._id
-						});
-						
-					}).catch( (err) => {
-						console.log( err );
-					});					
-					
-				};
-				
-			}).catch( (err) => {
-				console.log( err );
-			});
-			
-		};
-		
-	}).catch( (err) => {
-		console.log( err );
-	});	
-	
-};
-
-
-
-const logoutUser = (req, res) => {
-	
-	let token = req.query.token;
-	
-	
-	TokenModel.findByIdAndDelete(
-		token
-	).then( (cadaver) => {
-		
-		if (cadaver) {
-			
-			res.send({
-				message: "Logged out."
-			})
-			
-		} else {
-			
-			res.send({
-				action: "logoutUser",
-				error: "Token not found."
-			});
-			
-		};
-		
-	}).catch( (err) => {
-		console.log( err );
-	});
 	
 };
 

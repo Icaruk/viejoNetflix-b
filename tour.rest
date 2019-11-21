@@ -29,8 +29,17 @@ Content-Type:application/json
 ###
 
 
+@userId = 5dd674293fbf5720b415d92e
+@token = 5dd67a7999090d272ca0cf58
+
+
+// Logout
+GET http://localhost:3000/user/logout?token={{token}}
+###
+
+
 // Ver datos del usuario
-GET http://localhost:3000/user/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
+GET http://localhost:3000/user/{{userId}}?token={{token}}
 ###
 
 
@@ -39,78 +48,73 @@ GET http://localhost:3000/movie/popular?limit=10
 ###
 
 // Ver las pelis top50 populares
-GET http://localhost:3000/movie/popular?limit=10&token=5dd551e29256240df88835c3
+GET http://localhost:3000/movie/popular?limit=10&token={{token}}
 ###
 
 
 // Ver las pelis top10 nuevas
-GET http://localhost:3000/movie/newest?limit=10&token=5dd551e29256240df88835c3
+GET http://localhost:3000/movie/newest?limit=10&token={{token}}
 ###
 
 
 // Ver las pelis top20 viejas
-GET http://localhost:3000/movie/oldest?limit=10&token=5dd551e29256240df88835c3
+GET http://localhost:3000/movie/oldest?limit=10&token={{token}}
 ###
 
 
 // Buscar una peli que contenga "madre" en el título
-GET http://localhost:3000/movie/search?limit=10&title=madre&token=5dd551e29256240df88835c3
+GET http://localhost:3000/movie/search?limit=10&title=madre&token={{token}}
 ###
 
 
 // Buscar una peli con la id 337154
-GET http://localhost:3000/movie/search?id=337154&token=5dd551e29256240df88835c3
+GET http://localhost:3000/movie/search?id=337154&token={{token}}
 ###
 
 
 // Buscar pelis con el género 12
-GET http://localhost:3000/movie/search?limit=10&genre=12&token=5dd551e29256240df88835c3
+GET http://localhost:3000/movie/search?limit=10&genre=12&token={{token}}
 ###
 
 
 // Ver todas las pelis (cuidao que son 10k)
-GET http://localhost:3000/movie/all?limit=10&token=5dd551e29256240df88835c3
+GET http://localhost:3000/movie/all?limit=10&token={{token}}
 ###
 
 
 // Crea un pedido
-POST http://localhost:3000/order/add?token=5dd551e29256240df88835c3
+POST http://localhost:3000/order/add?token={{token}}
 Content-Type:application/json
 
 {
 	"movieId": 458897,
-	"userId": "5dd2ae62d274334cd8a07cc1",
+	"userId": {{userId}},
 	"city": "Valencia"
 }
 ###
 
 
 // Ver datos del pedido
-GET http://localhost:3000/order/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
+GET http://localhost:3000/order/{{userId}}?token={{token}}
 ###
 
 
 // Ver los pedidos de un cliente
-GET http://localhost:3000/order/client/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
+GET http://localhost:3000/order/client/{{userId}}?token={{token}}
 ###
 
 
 // Marcar como finalizado
-GET http://localhost:3000/order/setStatus/5dd2ae62d274334cd8a07cc1?status=1&token=5dd551e29256240df88835c3
+GET http://localhost:3000/order/setStatus/{{userId}}?status=1&token={{token}}
 ###
 
 
 // Borra el pedido
-DELETE http://localhost:3000/order/delete/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
-###
-
-
-// Logout
-GET http://localhost:3000/user/logout?token=5dd54abc9256240df88835c2
+DELETE http://localhost:3000/order/delete/{{userId}}?token={{token}}
 ###
 
 
 // Delete user
-DELETE http://localhost:3000/user/delete/5dd2ae62d274334cd8a07cc1?token=5dd551e29256240df88835c3
+DELETE http://localhost:3000/user/delete/{{userId}}?token={{token}}
 ###
 
