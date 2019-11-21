@@ -19,6 +19,7 @@ Content-Type:application/json
 
 
 // Login
+# @name resLogin
 POST http://localhost:3000/user/login
 Content-Type:application/json
 
@@ -29,8 +30,8 @@ Content-Type:application/json
 ###
 
 
-@userId = 5dd674293fbf5720b415d92e
-@token = 5dd67a7999090d272ca0cf58
+@userId = {{resLogin.response.body.userId}}
+@token = {{resLogin.response.body.token}}
 
 
 // Logout

@@ -2,7 +2,7 @@
 const TokenModel = require("../models/Token");
 
 
-const hasValidToken = (req, res, next) => {
+const hasValidToken = async (req, res, next) => {
 	
 	let token = req.query.token;
 	
@@ -26,28 +26,46 @@ const hasValidToken = (req, res, next) => {
 		
 		// ¿Token válido?
 		if (token.length !== 24) {
-			
 			responseToken("invalid", res);
-			
 			return;
 		};
 		
 		
 		// ¿Existe el token?
-		TokenModel.findById(
+		const tokenFound = await TokenModel.findById(
 			token
-		).then( (tokenFound) => {
+		);
+		
+		
+		if (!tokenFound) {
 			
-			if (!tokenFound) {
-				responseToken("unauthorized", res);
-			} else {
-				req.adminLevel = tokenFound.adminLevel; // guardo el nivel de admin
-				next();
+			responseToken("unauthorized", res);
+			
+		} else {
+			
+			// Fecha de hoy
+			const date = new Date (Date.now());
+			
+			
+			// Compruebo si el token no está caducado
+			if (tokenFound.endDate < date) {
+				
+				// Borro el token caducado
+				await TokenModel.findByIdAndRemove(tokenFound._id),
+				
+				
+				// Respondo
+				responseToken("expired", res);
+				return;
+				
 			};
 			
-		}).catch( (err) => {
-			console.log( err );
-		});
+			
+			// Guardo el nivel de admin
+			req.adminLevel = tokenFound.adminLevel;
+			next();
+			
+		};
 		
 	};
 	
@@ -57,6 +75,7 @@ const hasValidToken = (req, res, next) => {
 
 const responseToken = (resId, res) => {
 	// "invalid", "unauthorized"
+	
 	
 	switch (resId) {
 		
@@ -76,6 +95,15 @@ const responseToken = (resId, res) => {
 				error: "Unauthorized."
 			});
 			
+		break;
+		
+		case "expired":
+			
+			res.status(401);
+			res.send({
+				error: "Token expired, login again."
+			});
+		
 		break;
 		
 	};
