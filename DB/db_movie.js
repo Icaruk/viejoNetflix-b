@@ -217,7 +217,7 @@ const deleteMovie = (req, res) => {
 			});
 		} else {
 			res.send({
-				action: "deleteMovie",
+				errorCode: "movie_delete_1",
 				error: `Movie with id ${id} not found.`
 			})
 		};

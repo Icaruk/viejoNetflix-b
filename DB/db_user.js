@@ -21,7 +21,21 @@ const registerUser = (req, res) => {
 	}).save().then( (user) => {
 		res.send(user);
 	}).catch( (err) => {
-		console.log( err );
+		
+		if (err.code === 11000) { // E11000 duplicate key error collection: viejoNetflix.users index: username_1 dup key: { : \"Icaruk\" }
+			
+			res.status(409); // conflict
+			res.send({
+				errorCode: "user_register_1",
+				error: "User or email are already used."
+			});
+			
+		} else {
+			
+			res.send(err);
+			
+		};
+		
 	});
 	
 };
@@ -49,7 +63,7 @@ const loginUser = async (req, res) => {
 			
 			res.status(401);
 			res.send({
-				action: "userLogin",
+				errorCode: "user_login_1",
 				error: "User not found or wrong password."
 			});
 			
@@ -59,7 +73,7 @@ const loginUser = async (req, res) => {
 			if (! bcrypt.compare(password, userFound.password)) {
 				res.status(401);
 				res.send({
-					action: "userLogin",
+					errorCode: "user_login_1",
 					error: "User not found or wrong password."
 				});
 			};
@@ -76,7 +90,7 @@ const loginUser = async (req, res) => {
 				
 				res.status(403); // Forbidden
 				res.send({
-					action: "userLogin",
+					errorCode: "user_login_2",
 					error: "User is already logged in.",
 					username: userFound.username,
 					userId: tokenFound.userId,
@@ -130,7 +144,7 @@ const logoutUser = (req, res) => {
 		} else {
 			
 			res.send({
-				action: "logoutUser",
+				errorCode: "user_logout_1",
 				error: "Token not found."
 			});
 			
@@ -203,7 +217,7 @@ const deleteUser = (req, res) => {
 			});
 		} else {
 			res.send({
-				action: "deleteUser",
+				errorCode: "user_delete_1",
 				error: `User with id ${id} not found.`
 			})
 		};
