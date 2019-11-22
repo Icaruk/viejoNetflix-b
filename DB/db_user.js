@@ -21,9 +21,9 @@ const registerUser = (req, res) => {
 	}).save().then( (user) => {
 		
 		let resLimpia = {
-			userId: res._id,
-			username: res.username,
-			email: res.username
+			userId: user._id,
+			username: user.username,
+			email: user.username
 		};
 		
 		
