@@ -17,10 +17,7 @@ const hasValidToken = async (req, res, next) => {
 	// No hay token
 	if (!token) {
 		
-		res.status(401);
-		res.send({
-			error: "Unauthorized."
-		});
+		responseToken("invalid", res);
 		
 	} else {
 		
@@ -83,6 +80,7 @@ const responseToken = (resId, res) => {
 			
 			res.status(400);
 			res.send({
+				errorCode: "token_1",
 				error: "Invalid token provided."
 			});
 			
@@ -92,6 +90,7 @@ const responseToken = (resId, res) => {
 			
 			res.status(401);
 			res.send({
+				errorCode: "token_2",
 				error: "Unauthorized."
 			});
 			
@@ -101,6 +100,7 @@ const responseToken = (resId, res) => {
 			
 			res.status(401);
 			res.send({
+				errorCode: "token_3",
 				error: "Token expired, login again."
 			});
 		

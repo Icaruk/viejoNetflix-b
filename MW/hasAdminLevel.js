@@ -18,6 +18,7 @@ const hasAdminLevel = (adminLevelRequired, req, res, next) => {
 		
 		res.status(401);
 		res.send({
+			errorCode: "admin_1",
 			error: `This action requires at least admin level ${adminLevelRequired}`
 		});
 		
