@@ -19,7 +19,18 @@ const registerUser = (req, res) => {
 		billing:	bodyData.billing
 		
 	}).save().then( (user) => {
+		
+		let resLimpia = {
+			userId: res._id,
+			username: res.username,
+			email: res.username
+		};
+		
+		
+		res.send(resLimpia);
+		
 		res.send(user);
+		
 	}).catch( (err) => {
 		
 		if (err.code === 11000) { // E11000 duplicate key error collection: viejoNetflix.users index: username_1 dup key: { : \"Icaruk\" }
