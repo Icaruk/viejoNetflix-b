@@ -4,50 +4,58 @@ const TokenModel = require("../models/Token");
 const bcrypt = require("bcryptjs");
 
 
-const registerUser = (req, res) => {
+const registerUser = async (req, res) => {
 	
-	let bodyData = req.body;
+	try {
+		
+		let bodyData = req.body;
+		
+		
+		let user = new UserModel ({
+			
+			username: 	bodyData.username,
+			email: 		bodyData.email,
+			password: 	bodyData.password,
+			phone: 		bodyData.phone,
+			address:	bodyData.address,
+			billing:	bodyData.billing
+			
+		}).save().then( (user) => {
+			
+			let resLimpia = {
+				userId: user._id,
+				username: user.username,
+				email: user.username
+			};
+			
+			
+			res.send(resLimpia);
+			
+			res.send(user);
+			
+		}).catch( (err) => {
+			
+			if (err.code === 11000) { // E11000 duplicate key error collection: viejoNetflix.users index: username_1 dup key: { : \"Icaruk\" }
+				
+				res.status(409); // conflict
+				res.send({
+					errorCode: "user_register_1",
+					error: "User or email are already used."
+				});
+				
+			} else {
+				
+				res.send(err);
+				
+			};
+			
+		});		
+		
+	} catch (err) {
+		console.log( err );
+	};
 	
 	
-	new UserModel ({
-		
-		username: 	bodyData.username,
-		email: 		bodyData.email,
-		password: 	bodyData.password,
-		phone: 		bodyData.phone,
-		address:	bodyData.address,
-		billing:	bodyData.billing
-		
-	}).save().then( (user) => {
-		
-		let resLimpia = {
-			userId: user._id,
-			username: user.username,
-			email: user.username
-		};
-		
-		
-		res.send(resLimpia);
-		
-		res.send(user);
-		
-	}).catch( (err) => {
-		
-		if (err.code === 11000) { // E11000 duplicate key error collection: viejoNetflix.users index: username_1 dup key: { : \"Icaruk\" }
-			
-			res.status(409); // conflict
-			res.send({
-				errorCode: "user_register_1",
-				error: "User or email are already used."
-			});
-			
-		} else {
-			
-			res.send(err);
-			
-		};
-		
-	});
 	
 };
 
