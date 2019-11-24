@@ -8,6 +8,10 @@ const addOrder = (req, res) => {
 	let bodyData = req.body;
 	
 	
+	console.log( bodyData );
+	
+	
+	
 	// Busco si el el userId ya tiene un order
 	OrderModel.countDocuments({
 		userId: bodyData.userId,
@@ -25,12 +29,25 @@ const addOrder = (req, res) => {
 		// No tiene pedidos
 		} else {
 			
+			// Obtengo días de alquilar
+			let days = bodyData.days;
+			
+			if (!days) {
+				days = 2;	
+			};
+			
+			
+			// Calculo fechas
+			let startDate = Date.now(); // ms
+			let endDate = startDate + days * 24 * 60 * 60 * 1000; // días * 24h * 60 min * 60 s * 1000 ms
+			
+			
 			new OrderModel ({
 				
 				movieId: 	bodyData.movieId,
 				userId: 	bodyData.userId,
-				startDate: 	bodyData.startDate,
-				endDate: 	bodyData.endDate,
+				startDate: 	startDate,
+				endDate: 	endDate,
 				city: 		bodyData.city,
 				status: 	0
 				

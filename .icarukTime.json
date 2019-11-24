@@ -1,17 +1,23 @@
 {
-    "idleHeartbeats": 579,
-    "navigatingHeartbeats": 556,
-    "totalCodingHeartbeats": 1422,
+    "idleHeartbeats": 866,
+    "navigatingHeartbeats": 855,
+    "totalCodingHeartbeats": 2050,
     "languageHeartbeats": {
-        "code-runner-output": 21,
-        "javascript": 1364,
-        "http": 37
+        "code-runner-output": 32,
+        "javascript": 1894,
+        "http": 114,
+        "plaintext": 10
     },
     "fileHeartbeats": {
         "extension-output-#3": 21,
-        "DB/db_user.js": 988,
-        "tour.rest": 37,
+        "DB/db_user.js": 998,
+        "tour.rest": 114,
         "models/User.js": 68,
-        "utils/crypto.js": 308
+        "utils/crypto.js": 308,
+        "f:\\Programación\\Bootcamp\\Proyectos\\viejoNetflix-b\\DB\\db_user.js.git": 10,
+        "DB/db_order.js": 328,
+        "Untitled-1": 168,
+        "extension-output-#7": 11,
+        "models/Order.js": 24
     }
 }

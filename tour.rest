@@ -89,8 +89,9 @@ Content-Type:application/json
 
 {
 	"movieId": 458897,
-	"userId": {{userId}},
-	"city": "Valencia"
+	"userId": "{{userId}}",
+	"city": "Valencia",
+	"days": 3
 }
 ###
 
