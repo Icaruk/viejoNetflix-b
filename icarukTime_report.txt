@@ -1,0 +1,42 @@
+
+-------------
+icarukTime
+-------------
+
+COD |||||||||||||||||||||||||||||||||| ⛏ 68%
+NAV |||||| 📁 13%
+IDL ||||||||| 🛏 19%
+
+
+Total time:
+	└─ 19m 2s 
+
+Coding time:
+	└─ 12m 55s 
+
+Navigating time:
+	└─ 2m 33s 
+
+Idle time:
+	└─ 3m 34s 
+
+Time by language:
+	├─ javascript: 12m 23s  
+	├─ code-runner-output: 21s  
+	└─ http: 11s  
+
+Time by file:
+	├─ DB/db_user.js: 7m 2s  
+	├─ utils/crypto.js: 5m 8s  
+	├─ extension-output-#3: 21s  
+	├─ models/User.js: 13s  
+	└─ tour.rest: 11s  
+
+
+
+
+
+
+DEBUG
+ folder --> file:///f%3A/Programaci%C3%B3n/Bootcamp/Proyectos/viejoNetflix-b 
+ file --> file:///f%3A/Programaci%C3%B3n/Bootcamp/Proyectos/viejoNetflix-b/.icarukTime.json

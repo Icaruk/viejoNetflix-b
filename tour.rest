@@ -4,8 +4,8 @@ POST http://localhost:3000/user/register
 Content-Type:application/json
 
 {
-	"username":  "Icaruk3",
-	"email": "asd3@asd.com",
+	"username":  "Icaruk",
+	"email": "asd@asd.com",
 	"password":  "1234",
 	"phone": "647123456",
 	"address": "c/ Falsa, 123",

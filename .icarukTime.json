@@ -1,11 +1,17 @@
 {
-    "idleHeartbeats": 59,
-    "navigatingHeartbeats": 21,
-    "totalCodingHeartbeats": 154,
+    "idleHeartbeats": 579,
+    "navigatingHeartbeats": 556,
+    "totalCodingHeartbeats": 1422,
     "languageHeartbeats": {
-        "http": 154
+        "code-runner-output": 21,
+        "javascript": 1364,
+        "http": 37
     },
     "fileHeartbeats": {
-        "tour.rest": 154
+        "extension-output-#3": 21,
+        "DB/db_user.js": 988,
+        "tour.rest": 37,
+        "models/User.js": 68,
+        "utils/crypto.js": 308
     }
 }

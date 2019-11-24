@@ -52,25 +52,31 @@ const UserSchema = mongoose.Schema({
 
 
 
+
 // MW para crypto
 UserSchema.pre("save", function (next) { // usamos function de ES5 porque queremos el this para acceder a la instancia
 	
 	const user = this;
 	
 	
-	bcrypt.hash(
-		user.password, 10
-	).then( hash => {
-		user.password = hash;
-		next();
-	}).catch( err => {
+	// Sólo encriptaré el campo password
+	if (user.password) {
 		
-		console.log( err );
+		bcrypt.hash(
+			user.password, 10
+		).then( hash => {
+			user.password = hash;
+			next();
+		}).catch( err => {
+			
+			console.log( err );
+			
+			res.status(500);
+			res.send(err);
+			
+		});
 		
-		res.status(500);
-		res.send(err);
-		
-	});
+	};
 	
 	
 });
