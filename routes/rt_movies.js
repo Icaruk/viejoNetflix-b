@@ -14,8 +14,8 @@ const ignoreTokenForLimit = require("../MW/ignoreTokenForLimit");
 
 
 
-router.get("/movie/search", hasValidToken, getMoviesBySearch);
-router.get("/movie/all", hasValidToken, getAllMovies);
+router.get("/movie/search", ignoreTokenForLimit, hasValidToken, getMoviesBySearch);
+router.get("/movie/all", ignoreTokenForLimit, hasValidToken, getAllMovies);
 
 
 router.get("/movie/popular", ignoreTokenForLimit, hasValidToken, getPopularMovies);
