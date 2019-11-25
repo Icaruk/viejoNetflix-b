@@ -26,7 +26,10 @@ const getMoviesBySearch = (req, res) => {
 	} else if (title) {
 		
 		MovieModel.find({
-			title: {$regex: `.*${title}.*`}
+			$or : [
+				{ title: {$regex: `.*${title}.*`, $options: "i"} },
+				{ original_title: {$regex: `.*${title}.*`, $options: "i"} }
+			]
 		}).limit(
 			limit
 		).then ( (movies) => {
