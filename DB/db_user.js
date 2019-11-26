@@ -74,13 +74,18 @@ const loginUser = async (req, res) => {
 			
 		} else {
 			
+			let correctPassword = await bcrypt.compare(password, userFound.password);
+			
+			
 			// Compruebo pass
-			if (! bcrypt.compare(password, userFound.password)) {
+			if (! correctPassword) {
 				res.status(401);
 				res.send({
 					errorCode: "user_login_1",
 					error: "User not found or wrong password."
 				});
+				
+				return;
 			};
 			
 			
