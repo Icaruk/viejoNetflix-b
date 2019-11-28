@@ -88,7 +88,7 @@ POST http://localhost:3000/order/add?token={{token}}
 Content-Type:application/json
 
 {
-	"movieId": 458897,
+	"movieId": 458899,
 	"userId": "{{userId}}",
 	"city": "Valencia",
 	"days": 3
@@ -97,7 +97,7 @@ Content-Type:application/json
 
 
 // Ver datos del pedido
-GET http://localhost:3000/order/{{userId}}?token={{token}}
+GET http://localhost:3000/order/5ddfee8d4c96ff459c115dd7?token={{token}}
 ###
 
 
