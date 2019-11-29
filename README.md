@@ -1,90 +1,194 @@
 
-# Users
+#
 
-## **POST** /users/register
-Register a user.
-``` json
+#### Table of Contents  
+
+- [How to run 🚀](#How-to-run-🚀)  
+- [Backend 🔙](#Backend-🔙) 
+	- [User endpoints](#USER)
+	- [Movie endpoints](#MOVIE)
+	- [Order endpoints](#ORDER)
+
+- [Frontend 👁‍🗨](#Frontend-👁‍🗨)  
+
+#
+
+
+
+<br>
+
+# ¿Qué es? 🌌
+
+Es una aplicación web que emula el antiguo Netflix hecha en 🕒**80 horas** que usa:
+
+- Frontend: 🧧 Angular 8 
+- Backend: 🔸 NodeJS + Express
+- DB: 🍃 mongoDB 
+
+Durante el desarrollo he usado [este tablón de Trello](https://trello.com/b/XluaxT2E/viejonetflix).
+
+
+<br>
+
+# How to run 🚀
+
+- Download [backend repo](https://github.com/Icaruk/viejoNetflix-b).
+- Download [frontend repo](https://github.com/Icaruk/viejoNetflix-f).
+- On the backend run:
+	- `npm run dev`
+- On the frontend run:
+	- `npm start`
+- It should open on http://localhost:4200/
+
+
+<br>
+
+# Backend 🔙
+
+## **Endpoints** 📃
+
+
+
+## USER
+
+- Register
+	- **POST** /user/register
+```json
 {
-	"username":  "Icaruk",
-	"email":  "asd@asd.com",
+	"username":  "Username",
+	"email": "asd@asd.com",
 	"password":  "1234",
-	"phone":  "600123456",
-	"address":	"c/ ASD"
+	"phone": "647123456",
+	"address": "c/ Falsa, 123",
+	"billing": {
+		"cardNumber": 123456789,
+		"cardOwner": "Name Name Name",
+		"cardExpireDate": [6, 22]
+	}
 }
 ```
 
-## **GET** /user/all?token={token}
-Returns all users.
-
-
-## **POST** /user/login
-Login a user and returns a token.
-``` json
+- Login
+	- **POST** /user/login
+```json
 {
 	"username":  "Icaruk",
 	"password":  "1234"
 }
 ```
 
-## **GET** /user/{user_id}?token={token}
-Returns the user data.
+- Logout
+	- **GET** user/logout?token={token}
+	
+- Get user data
+	- **GET** user/{userId}?token={token}
 
-## **GET** /user/logout?token={token}
-Returns the user data.
+- Delete user
+	- **DELETE** user/delete/{{userId}}?token={token}
 
-## **DELETE** /user/delete/{user_id}?token={token}
-Delete a user.
+#
+## MOVIE
+
+- Get popular movies
+	- **GET** movie/popular?limit=10
+	- **GET** movie/popular?limit=500&token={token}
+
+- Get newest movies
+	- **GET** movie/newest?limit=10
+	- **GET** movie/newest?limit=500&token={token}
+
+- Get oldest movies
+	- **GET** movie/oldest?limit=10
+	- **GET** movie/oldest?limit=500&token={token}
+
+- Search by title
+	- **GET** movie/search?limit=10&title=harry
+	- **GET** movie/search?limit=10&title=harry&token={token}
+
+- Search by id
+	- **GET** movie/search?id=337154&token={token}
+
+- Search by genreId
+	- **GET** movie/search?limit=10&genre=12&token={token}
+
+- Get ALL films (be careful, there are 10.000)
+	- **GET** movie/all?limit=10&token={token}
 
 
+#
+## ORDER
 
-# Movies
-
-## **GET** /movie/search?{title}?token={token}
-## **GET** /movie/search?{id}?token={token}
-## **GET** /movie/search?{genre}?token={token}
-## **GET** /movie/popular/{result_limit}?token={token}
-## **GET** /movie/newest/{result_limit}?token={token}
-## **GET** /movie/oldest/{result_limit}?token={token}
-
-## **POST** /movie/add?token={token}
-
-``` json
+- New order
+	- **POST** order/add?token={token}
+```json
 {
-	"id": 1,
-	"title": "Titulo", 
-	"original_title": "Titulo original",
-	"release_date": "2019-11-13",
-	"runtime": 60,
-	"overview": "resumen",
-	"poster_path": "link poster",
-	"backdrop_path": "link back",
-	"video": false,
-	"genre_ids": [1, 2, 3],
-	"adult": false,
-	"original_language": "ES",
-	"popularity": 40,
-	"vote_count": 50,
-	"vote_average": 60
+	"movieId": 458899,
+	"userId": "35sdf63j6",
+	"city": "Valencia",
+	"days": 3
 }
 ```
 
-## **DELETE** /movie/delete/{movie_id}?token={token}
+- Get order info
+	- **GET** order/5ddfee8d4c96ff459c115dd7?token={token}
+
+- Get all orders from one client
+	- **GET** order/client/{userId}?token={token}
+
+- Change order status (from 0 to 2)
+	- **GET** order/setStatus/{{userId}}?status=1&token={token}
+
+- Delete an order
+	- **DELETE** order/delete/{{userId}}?token={token}
 
 
 
-# Orders
+<br>
 
-## **POST** /order/add?token={token}
-``` json
-{
-	"movieId": 458897,
-	"userId": "5dcd7652394fde1938a80f02",
-	"city": "Valencia"
-}
-```
+# Frontend 👁‍🗨
+
+## Features 📃
+
+- Homepage with most popular movies + random genre movies.
+- Search by title.
+- Users.
+- Orders.
 
 
-## **GET** /order/{order_id}?token={token}
-## **GET** /order/client/{client_id}?token={token}
-## **GET** /order/setStatus/{order_id}?status={status_id}&token={token}
-## **DELETE** /order/delete/{order_id}?token={token}
+## Preview 🔍
+
+- Home
+> ![](https://i.gyazo.com/519f71b33bde9428c3fabd660d43aa1c.jpg)
+
+- Genre dropdown
+> ![](https://i.gyazo.com/06881dae3f950212a6318909bc65783f.png)
+
+- Register
+> ![](https://i.gyazo.com/86c7b8519bd18b50c92f71d1f41cef5b.png)
+
+- Login
+> ![](https://i.gyazo.com/d3ee62fe15b5bdee3a459cf675309432.png)
+
+- Profile
+> ![](https://i.gyazo.com/e8a56ea1f3ba321440d664e06ed93b7f.png)
+
+- Search
+> ![](https://i.gyazo.com/db65979413b9a0837926c0dde9fbde75.jpg)
+> https://i.gyazo.com/d2f07a6195ed7a330b824a178a2cf3bf.mp4
+
+- Detail
+> ![](https://i.gyazo.com/184c987c56213ccde2be076c4dfe8fbd.jpg)
+> https://i.gyazo.com/9b946615597c14a649596f5d9a8916a4.mp4
+
+- New order
+> ![](https://i.gyazo.com/62ccc27171926e9c00e34c8be21ea3d4.png)
+
+- User orders
+> ![](https://i.gyazo.com/82ed673e41059de6358875b8be871d43.png)
+> https://i.gyazo.com/c55e560de90655d3e907a99a141bf915.mp4
+
+
+
+<br>
+
+# [🡅 TOP 🡅](#Table-of-Contents)  
