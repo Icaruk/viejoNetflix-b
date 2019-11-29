@@ -22,7 +22,7 @@ const addOrder = (req, res) => {
 		if (count > 0) {
 			
 			res.send({
-				errorCode: "oder_add_1",
+				errorCode: "order_add_1",
 				error: `The client ${bodyData.userId} already has an order.`
 			});
 			
@@ -82,14 +82,14 @@ const deleteOrder = (req, res) => {
 			});
 		} else {
 			res.send({
-				errorCode: "oder_delete_1",
+				errorCode: "order_delete_1",
 				error: `Order with id ${id} not found.`
 			})
 		};
 		
 	}).catch( () => {
 		res.send({
-			errorCode: "oder_delete_1",
+			errorCode: "order_delete_1",
 			error: `Order with ${_id} not found.`
 		})
 	});	
@@ -110,7 +110,7 @@ const setOrderStatus = (req, res) => {
 	// Compruebo
 	if (!id) {
 		res.send({
-			errorCode: "oder_set_1",
+			errorCode: "order_set_1",
 			error: "No id provided."
 		});
 		
@@ -119,7 +119,7 @@ const setOrderStatus = (req, res) => {
 	
 	if (!status) {
 		res.send({
-			errorCode: "oder_set_2",
+			errorCode: "order_set_2",
 			error: "No status provided."
 		});
 		
@@ -134,7 +134,7 @@ const setOrderStatus = (req, res) => {
 	// Compruebo si el estado es válido
 	if (![0, 1, 2].includes(status)) {
 		res.send({
-			errorCode: "oder_set_3",
+			errorCode: "order_set_3",
 			error: "Invalid status provided."
 		})
 		
@@ -155,7 +155,7 @@ const setOrderStatus = (req, res) => {
 			});
 		} else {
 			res.send({
-				errorCode: "oder_set_4",
+				errorCode: "order_set_4",
 				error: `Order with id ${id} not found.`
 			})
 		};
@@ -181,7 +181,7 @@ const getOrder = (req, res) => {
 			res.send(order)
 		} else {
 			res.send({
-				errorCode: "oder_get_1",
+				errorCode: "order_get_1",
 				error: `Order with id ${id} not found.`
 			})
 		};
