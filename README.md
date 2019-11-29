@@ -47,6 +47,7 @@ Durante el desarrollo he usado [este tablón de Trello](https://trello.com/b/Xlu
 
 ## **Endpoints** 📃
 
+- The endpoints that have a "limit" option are limited to 10, unless you provide a valid token, in which case are limited to 500.
 
 
 ## USER
@@ -84,7 +85,7 @@ Durante el desarrollo he usado [este tablón de Trello](https://trello.com/b/Xlu
 	- **GET** user/{userId}?token={token}
 
 - Delete user
-	- **DELETE** user/delete/{{userId}}?token={token}
+	- **DELETE** user/delete/{userId}?token={token}
 
 #
 ## MOVIE
@@ -103,15 +104,16 @@ Durante el desarrollo he usado [este tablón de Trello](https://trello.com/b/Xlu
 
 - Search by title
 	- **GET** movie/search?limit=10&title=harry
-	- **GET** movie/search?limit=10&title=harry&token={token}
+	- **GET** movie/search?limit=500&title=harry&token={token}
 
 - Search by id
 	- **GET** movie/search?id=337154&token={token}
 
 - Search by genreId
-	- **GET** movie/search?limit=10&genre=12&token={token}
+	- **GET** movie/search?limit=10&genre=12
+	- **GET** movie/search?limit=500&genre=12&token={token}
 
-- Get ALL films (be careful, there are 10.000)
+- Get ALL films *(be careful, there are 10.000)*
 	- **GET** movie/all?limit=10&token={token}
 
 
@@ -136,10 +138,10 @@ Durante el desarrollo he usado [este tablón de Trello](https://trello.com/b/Xlu
 	- **GET** order/client/{userId}?token={token}
 
 - Change order status (from 0 to 2)
-	- **GET** order/setStatus/{{userId}}?status=1&token={token}
+	- **GET** order/setStatus/{userId}?status=1&token={token}
 
 - Delete an order
-	- **DELETE** order/delete/{{userId}}?token={token}
+	- **DELETE** order/delete/{userId}?token={token}
 
 
 
