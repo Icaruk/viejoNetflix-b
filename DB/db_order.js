@@ -208,8 +208,8 @@ const getOrdersByClient = (req, res) => {
 	
 	
 	OrderModel.find({
-		userId: userId,
-		status: 0
+		userId: userId
+		// status: 0
 	}).then( (orders) => {
 		res.send(orders)
 	}).catch( (err) => {
