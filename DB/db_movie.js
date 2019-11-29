@@ -219,6 +219,7 @@ const deleteMovie = (req, res) => {
 				message: `Movie ${cadaver.id} DELETED: Title: ${cadaver.title}`
 			});
 		} else {
+			res.status(404);
 			res.send({
 				errorCode: "movie_delete_1",
 				error: `Movie with id ${id} not found.`

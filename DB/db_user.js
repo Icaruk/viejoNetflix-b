@@ -152,7 +152,7 @@ const logoutUser = (req, res) => {
 			})
 			
 		} else {
-			
+			res.status(401); // unAuthorized
 			res.send({
 				errorCode: "user_logout_1",
 				error: "Token not found."
@@ -226,6 +226,7 @@ const deleteUser = (req, res) => {
 				message: `User ${cadaver.id} DELETED: username: ${cadaver.username} email: ${cadaver.email}`
 			});
 		} else {
+			res.status(404);
 			res.send({
 				errorCode: "user_delete_1",
 				error: `User with id ${id} not found.`
