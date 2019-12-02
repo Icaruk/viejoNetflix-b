@@ -3,13 +3,13 @@
 
 #### Table of Contents  
 
-- [How to run 🚀](#How-to-run-🚀)  
-- [Backend 🔙](#Backend-🔙) 
+- [How to run 🚀](#How-to-run-)  
+- [Backend 🔙](#Backend-) 
 	- [User endpoints](#USER)
 	- [Movie endpoints](#MOVIE)
 	- [Order endpoints](#ORDER)
 
-- [Frontend 👁‍🗨](#Frontend-👁‍🗨)  
+- [Frontend 👁‍🗨](#Frontend-)  
 
 #
 
